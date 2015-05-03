@@ -15,4 +15,6 @@ public interface UserRoleRelDao {
 	List<UserRoleRelDO> findByUserId(Integer userId);
 	
 	void batchInsertUserRoleRel(List<UserRoleRelDO> userRoleRelDOs);
+	
+	void deleteUserRoleRelByUserId(Integer userId);
 }

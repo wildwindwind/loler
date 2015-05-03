@@ -49,6 +49,11 @@ public class UserDO implements Serializable{
 	 */
 	private Date updateTime;
 	
+	/**
+	 * 禁用
+	 */
+	private Integer disable;
+	
 	
 	public Integer getId() {
 		return id;
@@ -115,4 +120,12 @@ public class UserDO implements Serializable{
 		this.userName = userName;
 	}
 
+	public Integer getDisable() {
+		return disable;
+	}
+
+	public void setDisable(Integer disable) {
+		this.disable = disable;
+	}
+	
 }

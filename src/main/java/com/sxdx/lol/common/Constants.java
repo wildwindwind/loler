@@ -11,4 +11,6 @@ public class Constants
 	public static final String OK_FLAG = "ok"; 
 	/** 错误*/
 	public static final String ERROR_FLAG = "error"; 
+	/** 密码不正确 */
+	public static final String PASSWORD_ERROR_FLAG = "password_error"; 
 }

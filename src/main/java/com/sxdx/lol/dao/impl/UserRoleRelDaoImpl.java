@@ -22,5 +22,10 @@ public class UserRoleRelDaoImpl extends SqlMapClientDaoSupport implements UserRo
         getSqlMapClientTemplate().insert("batchInsertUserRoleRel", userRoleRelDOs);
 	}
 
+	public void deleteUserRoleRelByUserId(Integer userId) {
+		Assert.notNull(userId);
+        getSqlMapClientTemplate().delete("deleteUserRoleRelByUserId", userId);
+	}
+
 
 }

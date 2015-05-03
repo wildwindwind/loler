@@ -169,6 +169,8 @@ public class UserController {
     @RequestMapping("user_doAllocRole")
     public void user_doAllocRole(Integer userId, String roleIds, Writer writer) throws IOException {
         
+    	Assert.notNull(userId);
+    	userRoleRelService.deleteUserRoleRelByUserId(userId);
     	List<UserRoleRelDO> userRoleRelDOs = new ArrayList<UserRoleRelDO>();
         if (StringUtils.isNotBlank(roleIds)){
             String[] ids=roleIds.split(",");
@@ -219,7 +221,8 @@ public class UserController {
     		userService.update(user);
     		writer.write(Constants.OK_FLAG);
     		return;
+    	}else{
+    		writer.write(Constants.PASSWORD_ERROR_FLAG);
     	}
-    	writer.write(Constants.ERROR_FLAG);
     }
 }

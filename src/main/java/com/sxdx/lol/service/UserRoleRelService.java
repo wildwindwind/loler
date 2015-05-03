@@ -16,4 +16,6 @@ public interface UserRoleRelService {
 	
 	void batchInsertUserRoleRel(List<UserRoleRelDO> userRoleRelDOs);
 	
+	void deleteUserRoleRelByUserId(Integer userId);
+	
 }

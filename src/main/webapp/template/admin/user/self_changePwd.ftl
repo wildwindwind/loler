@@ -60,9 +60,7 @@ input[type="password"] {width:180px; padding:4px;}
 				if(data=="ok"){
 					parent.showMsg('ok','密码修改成功！');
 					frameElement.api.close();
-				}
-				else
-				{
+				}else{
 					$("#login-tip").addClass("login-error");
 					$("#login-tip").html("旧密码输入错误");
 				}

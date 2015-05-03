@@ -65,4 +65,12 @@
 			id=#id#
 	</delete>
 	
+	<delete id="deleteUserRoleRelByUserId">
+		delete 
+		from 
+			lol_user_role
+		where 
+			user_id=#userId#
+	</delete>
+	
 </sqlMap>

@@ -193,7 +193,9 @@ public class RoleController {
 	 */
 	@RequestMapping("role_delete")
 	public void delete(Integer id, Writer writer) throws IOException {
+		//先删除role,再删除rolePermRel
 		roleService.delete(id);
+		rolePermRelService.deleteRolePermRelByRoleId(id);
 		writer.write(Constants.OK_FLAG);
 	}
 }

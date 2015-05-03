@@ -129,7 +129,9 @@
 		<span class="mr20">您好，${user}!</span>
 		<a class="mr20" href="javascript:self_changeInfo();">修改个人信息</a>
 		<a class="mr20" href="javascript:self_changePwd();">修改密码</a>
+		<!--
 		<a class="mr20" href="${base}/admin/index.do" onclick="$('.nav_info').html('系统首页');" target='iframe'>系统首页</a>
+		-->
 		<a href="javascript:logout();">退出</a>
 	</div>
 	<!--

@@ -25,4 +25,8 @@ public class UserRoleRelServiceImpl implements UserRoleRelService {
 		userRoleRelDao.batchInsertUserRoleRel(userRoleRelDOs);
 	}
 
+	public void deleteUserRoleRelByUserId(Integer userId) {
+		userRoleRelDao.deleteUserRoleRelByUserId(userId);
+	}
+
 }

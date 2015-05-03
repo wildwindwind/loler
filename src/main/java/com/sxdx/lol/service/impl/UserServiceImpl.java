@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	        for (RoleDO role : roles) {
 	        	//超级管理员
 	        	if(role.getIsSuper()==1){
-	               // perms = ConfigManager.getAllPerms();
+	                perms = ConfigManager.getAllPerms();
 	                break;
 	            }else{
 	        		perms = rolePermRelService.getPermissions(role.getId());

@@ -49,10 +49,10 @@
 			<td>${user.createTime?datetime}</td>
 			<td>${user.updateTime?datetime}</td>
 			<td>
-				<@shiro.hasPermission name="user_edit">【<a href="javascript:user_edit(${user.id});">修改</a>】</@shiro.hasPermission>
-				<@shiro.hasPermission name="user_allocRole">【<a href="javascript:user_selectRole(${user.id});">设置角色</a>】</@shiro.hasPermission>
-				<@shiro.hasPermission name="user_resetPwd">【<a href="javascript:user_resetPwd(${user.id})">重置密码</a>】</@shiro.hasPermission>
-				<@shiro.hasPermission name="user_delete">【<a href="javascript:del(${user.id});">删除</a>】</@shiro.hasPermission>
+				<@shiro.hasPermission name="user_edit">[<a href="javascript:user_edit(${user.id});">修改</a>]</@shiro.hasPermission>
+				<@shiro.hasPermission name="user_allocRole">[<a href="javascript:user_selectRole(${user.id});">设置角色</a>]</@shiro.hasPermission>
+				<@shiro.hasPermission name="user_resetPwd">[<a href="javascript:user_resetPwd(${user.id})">重置密码</a>]</@shiro.hasPermission>
+				<@shiro.hasPermission name="user_delete">[<a href="javascript:del(${user.id});">删除</a>]</@shiro.hasPermission>
 			</td>
 		</tr>
 		</#list>
