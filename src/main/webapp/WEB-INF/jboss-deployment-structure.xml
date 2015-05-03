@@ -1,0 +1,14 @@
+<jboss-deployment-structure>
+    <deployment>
+        <!-- Exclusions allow you to prevent the server from automatically adding some dependencies -->
+        <exclusions>
+            <module name="org.apache.httpcomponents"></module>
+            <module name="org.jboss.resteasy.resteasy-jaxrs"></module>
+            <module name="javax.ws.rs.api"></module>
+            <module name="org.slf4j" />
+            <module name="org.slf4j.impl" />
+            <module name=" org.apache.commons.pool" />
+           
+        </exclusions>
+    </deployment>
+</jboss-deployment-structure>

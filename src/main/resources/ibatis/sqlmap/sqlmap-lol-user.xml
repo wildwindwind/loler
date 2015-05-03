@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="user">
+
+	<typeAlias alias="user" type="com.sxdx.lol.entity.UserDO" />
+
+	<resultMap class="com.sxdx.lol.entity.UserDO" id="userMapping">
+		<result property="id" column="id"/>
+		<result property="userName" column="user_name"/>
+		<result property="password" column="password"/>
+		<result property="realName" column="real_name"/>
+		<result property="phoneNum" column="phone_num"/>
+		<result property="description" column="description"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	
+	<insert id="saveUser" parameterClass="user">
+		insert into lol_user(
+		user_name,
+		password,
+		real_name, 
+		phone_num ,
+		description,
+		create_time,
+		update_time
+		)values(
+			#userName#,
+			#password#,
+			#realName#,
+			#phoneNum#,
+			#description#,
+			now(),
+			now()
+		)
+		<selectKey resultClass="int" keyProperty="id">
+			select
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<select id="findUserById" resultMap="userMapping">
+		SELECT
+		*
+		FROM
+		lol_user
+		WHERE
+		id=#id#
+	</select>
+
+	<select id="findByUsername" resultMap="userMapping">
+		SELECT
+		*
+		FROM
+		lol_user
+		WHERE
+		user_name=#userName#
+	</select>
+
+	<update id="updateUser" parameterClass="user">
+		UPDATE lol_user
+			set
+			update_time = now()
+			<isNotEmpty prepend="," property="userName">
+				user_name=#userName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="password">
+				password=#password#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="realName">
+				real_name=#realName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="phoneNum">
+				phone_num = #phoneNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="description">
+				description = #description#
+			</isNotEmpty>
+		where id=#id#
+	</update>
+
+	<delete id="deleteUser">
+		delete 
+		from 
+			lol_user
+		where 
+			id=#id#
+	</delete>
+	<select id="findUserCountByCond" parameterClass="java.util.Map" resultClass="int">
+		SELECT
+		count(*)
+		FROM
+		lol_user
+		where
+			1=1
+		   <isNotEmpty prepend=" AND " property="userName">          
+               user_name like '%$userName$%'
+           </isNotEmpty>
+           <isNotEmpty prepend=" AND " property="realName">          
+               real_name like '%$realName$%'
+           </isNotEmpty>
+	</select>
+	
+	<select id="findUserByCond" parameterClass="java.util.Map" resultMap="userMapping">
+		SELECT
+		*
+		FROM
+		lol_user
+		where
+			1=1
+		    <isNotEmpty prepend=" AND " property="userName">          
+               user_name like '%$userName$%'
+           </isNotEmpty>
+           <isNotEmpty prepend=" AND " property="realName">          
+               real_name like '%$realName$%'
+           </isNotEmpty>
+			order by create_time desc
+	      	limit #offset#,#pageSize#
+	</select>
+	
+</sqlMap>

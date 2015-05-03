@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="role">
+
+	<typeAlias alias="role" type="com.sxdx.lol.entity.RoleDO" />
+
+	<resultMap class="com.sxdx.lol.entity.RoleDO" id="roleMapping">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="isSuper" column="is_super"/>
+		<result property="remark" column="remark"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+
+	
+	<insert id="saveRole" parameterClass="role">
+		insert into lol_role(
+		name,
+		is_super,
+		remark,
+		create_time
+		)values(
+			#name#,
+			#isSuper#,
+			#remark#,
+			now()
+		)
+		<selectKey resultClass="int" keyProperty="id">
+			select
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<select id="findRoleById" resultMap="roleMapping">
+		SELECT
+		*
+		FROM
+		lol_role
+		WHERE
+		id=#id#
+	</select>
+	
+	<select id="getAllRoles" resultMap="roleMapping">
+		SELECT
+		*
+		FROM
+		lol_role
+	</select>
+
+	<update id="updateRole" parameterClass="role">
+		UPDATE lol_role
+			set
+			create_time = now(),
+			<isNotEmpty prepend="," property="name">
+				name=#name#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="isSuper">
+				is_super=#isSuper#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="remark">
+				remark=#remark#
+			</isNotEmpty>
+		where id=#id#
+	</update>
+
+	<delete id="deleteRoleById">
+		delete 
+		from 
+			lol_role
+		where 
+			id=#id#
+	</delete>
+	
+	<select id="findRoleCountByCond" parameterClass="java.util.Map" resultClass="int">
+		SELECT
+		count(*)
+		FROM
+		lol_role
+		where
+			1=1
+		   <isNotEmpty prepend=" AND " property="name">          
+               name like '%$name$%'
+           </isNotEmpty>
+           <isNotEmpty prepend=" AND " property="isSuper">          
+               is_super = #isSuper#
+           </isNotEmpty>
+	</select>
+	
+	<select id="findRoleByCond" parameterClass="java.util.Map" resultMap="roleMapping">
+		SELECT
+		*
+		FROM
+		lol_role
+		where
+			1=1
+		   <isNotEmpty prepend=" AND " property="name">          
+               name like '%$name$%'
+           </isNotEmpty>
+           <isNotEmpty prepend=" AND " property="isSuper">          
+               is_super = #isSuper#
+           </isNotEmpty>
+			order by create_time asc
+	      	limit #offset#,#pageSize#
+	</select>
+</sqlMap>

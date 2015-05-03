@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="rolePerm">
+
+	<typeAlias alias="rolePerm" type="com.sxdx.lol.entity.RolePermRelDO" />
+
+	<resultMap class="com.sxdx.lol.entity.RolePermRelDO" id="rolePermRelMapping">
+		<result property="id" column="id"/>
+		<result property="roleId" column="role_id"/>
+		<result property="permUrl" column="perm_url"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+
+	<select id="findRolePermRelByUserId" resultMap="rolePermRelMapping">
+		SELECT
+		*
+		FROM
+		lol_role_perm
+		WHERE
+		role_id=#roleId#
+	</select>
+	
+	<insert id="MS_INSERT_ROLE_PERM_REL" parameterClass="rolePerm">
+		insert into lol_role_perm(
+		role_id,
+		perm_url,
+		create_time
+		)values(
+			#roleId#,
+			#permUrl#,
+			now()
+		)
+		<selectKey resultClass="int" keyProperty="id">
+			select
+			last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="batchInsertRolePermRel" parameterClass="java.util.List">
+		<![CDATA[
+			insert into lol_role_perm(role_id, perm_url, create_time) values
+		]]>
+		<iterate conjunction=",">
+			<![CDATA[
+				(#codes[].roleId#, #codes[].permUrl#, now())
+			]]>
+		</iterate>
+	</insert>
+
+	<select id="FIND_ROLE_PERM_REL_BY_ID" resultMap="rolePermRelMapping">
+		SELECT
+		*
+		FROM
+		lol_role_perm
+		WHERE
+		id=#id#
+	</select>
+
+	<delete id="MS_DELETE_ROLE_PERM_REL">
+		delete 
+		from 
+			lol_role_perm
+		where 
+			id=#id#
+	</delete>
+	
+	<delete id="deleteRolePermRelByRoleId">
+		delete 
+		from 
+			lol_role_perm
+		where 
+			role_id=#roleId#
+	</delete>
+	
+</sqlMap>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="userRole">
+
+	<typeAlias alias="userRole" type="com.sxdx.lol.entity.UserRoleRelDO" />
+
+	<resultMap class="com.sxdx.lol.entity.UserRoleRelDO" id="userRoleRelMapping">
+		<result property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="roleId" column="role_id"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+
+	
+	<select id="findUserRoleRelByUserId" resultMap="userRoleRelMapping">
+		SELECT
+		*
+		FROM
+		lol_user_role
+		WHERE
+		user_id=#userId#
+	</select>
+	
+	<insert id="MS_INSERT_USER_ROLE_REL" parameterClass="userRole">
+		insert into lol_user_role(
+		user_id,
+		role_id,
+		create_time
+		)values(
+			#userId#,
+			#roleId#,
+			now()
+		)
+		<selectKey resultClass="int" keyProperty="id">
+			select
+			last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="batchInsertUserRoleRel" parameterClass="java.util.List">
+		<![CDATA[
+			insert into lol_user_role(user_id, role_id, create_time) values
+		]]>
+		<iterate conjunction=",">
+			<![CDATA[
+				(#codes[].userId#, #codes[].roleId#, now())
+			]]>
+		</iterate>
+	</insert>
+
+	<select id="FIND_USER_ROLE_REL_BY_ID" resultMap="userRoleRelMapping">
+		SELECT
+		*
+		FROM
+		lol_user_role
+		WHERE
+		id=#id#
+	</select>
+	
+	<delete id="MS_DELETE_USER_ROLE_REL">
+		delete 
+		from 
+			lol_user_role
+		where 
+			id=#id#
+	</delete>
+	
+</sqlMap>
