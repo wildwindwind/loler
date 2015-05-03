@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Menu implements Serializable
 {
+	
 	private static final long serialVersionUID = 5811074799930799430L;
 
 	private String id;
