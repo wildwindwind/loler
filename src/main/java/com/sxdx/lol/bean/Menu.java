@@ -9,8 +9,8 @@ import java.util.List;
  * @author wildwind
  *
  */
-public class Menu implements Serializable
-{
+public class Menu implements Serializable{
+	
 	private static final long serialVersionUID = 5811074799930799430L;
 
 	private String id;
